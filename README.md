@@ -65,16 +65,32 @@ print(f'Shape of X_test: {X_test.shape}')
 
 This approach establishes a clear and reproducible framework for comparing different regression models while minimizing data leakage and ensuring fair performance assessment.
 
+After preparing the training and testing datasets, a Linear Regression model was selected as the baseline approach due to its simplicity, interpretability, and suitability for understanding relationships between features and house prices. An instance of the model was created using LinearRegression from scikit-learn and trained on the training data (X_train and y_train).
+
+During training, the model learned the optimal coefficients for each input feature by minimizing the difference between predicted and actual house prices. These coefficients quantify the expected change in price associated with a one-unit change in each feature, holding all other variables constant. The trained model was then used to generate predictions on the test dataset for performance evaluation and diagnostic analysis.
+
+```python
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+
+# Fit the model
+model.fit(X_train, y_train)
+```
+After training the linear regression model, predictions were generated on the test dataset and evaluated using standard regression metrics: Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared. These metrics quantify overall prediction error, average absolute deviation from true prices, and the proportion of variance in house prices explained by the model.
+
 ### Results
 
+The results indicate that the model explains approximately 29% of the variance in house prices, with an average prediction error of around €180,000. While this level of performance is reasonable for a baseline model using a limited number of structural features, it also highlights that a significant portion of price variation is driven by factors not captured in the dataset.
+
+Residual analysis shows that errors are centered close to zero but increase in magnitude for higher-priced properties. The Actual vs. Predicted plot confirms that the model follows the general pricing trend but systematically underestimates expensive houses, indicating heteroscedasticity and non-linear effects.
 
 ![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)
+
 *Linear regression captures the general price trend but underperforms for expensive properties*
 
 ### Insights:
 
 
-#### Visualize Data 
 
 
 # What I Learned
