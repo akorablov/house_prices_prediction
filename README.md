@@ -5,12 +5,12 @@ The dataset contains 4,140 housing records, with each property described by nume
 
 Multiple regression models were evaluated, including ``Linear Regression``, ``Decision Tree``, and ``Random Forest``, using metrics such as Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared, alongside residual diagnostics. The results show that linear regression provides a strong and explainable baseline, while tree-based models require careful tuning and richer feature sets to outperform simpler approaches. The project emphasizes practical model evaluation, interpretability, and informed model selection in real-world predictive analytics.
 
-# The Questions
+## The Questions
 1. Can house prices be predicted using a limited set of basic structural features?
 2. How does an interpretable linear regression model perform compared to more complex tree-based models?
 3. What do residuals and model diagnostics reveal about prediction errors and model limitations?
 
-# Tools I Used
+## Tools I Used
 This project was developed using the following tools and technologies to support data analysis, modeling, and presentation:
 
 - **Python** – the primary language used for data exploration and predictive modeling  
@@ -25,11 +25,9 @@ This project was developed using the following tools and technologies to support
 
 - **Git & GitHub** – for version control, experiment tracking, and project sharing
 
-# Data Preparation and Cleanup
+## Import & Clean Up Data
 
 In this section, I describe the steps taken to prepare the dataset for analysis, ensuring that it is accurate, clean, and ready for exploration.
-
-## Import & Clean Up Data
 
 The required libraries were first imported, and the dataset was loaded for initial inspection. Basic exploratory checks were performed to understand the structure of the data and identify potential quality issues. While most features contained complete values, the condition column included several missing (NaN) entries.
 
@@ -42,7 +40,7 @@ df.head()
 ```
 View my notebook with detailed steps here: [house_prices_prediction.ipynb](house_prices_prediction\house_prices_prediction.ipynb).
 
-# The Analysis
+## The Analysis
 
 In this stage, the dataset was prepared for modeling by selecting the relevant input features and defining the target variable. Based on exploratory analysis and domain relevance, the following structural features were chosen: living area (sqft_living), number of bedrooms, number of bathrooms, and number of floors. The property price was used as the target variable.
 
@@ -78,7 +76,7 @@ model.fit(X_train, y_train)
 ```
 After training the linear regression model, predictions were generated on the test dataset and evaluated using standard regression metrics: Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared. These metrics quantify overall prediction error, average absolute deviation from true prices, and the proportion of variance in house prices explained by the model.
 
-### Results
+## Results
 
 The results indicate that the model explains approximately 29% of the variance in house prices, with an average prediction error of around €180,000. While this level of performance is reasonable for a baseline model using a limited number of structural features, it also highlights that a significant portion of price variation is driven by factors not captured in the dataset.
 
@@ -88,13 +86,13 @@ Residual analysis shows that errors are centered close to zero but increase in m
 
 *Linear regression captures the general price trend but underperforms for expensive properties*
 
-### Insights:
+## Insights:
 
 
 
 
-# What I Learned
+## What I Learned
 
-# Challenges I Faced
+## Challenges I Faced
 
 # Conclusion
