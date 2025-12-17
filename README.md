@@ -68,8 +68,8 @@ This approach establishes a clear and reproducible framework for comparing diffe
 ### Results
 
 
-![images/actual_vs_prdicted_house_prices.png](images\actual_vs_prdicted_house_prices.png)
-*Stacked bar chart showing how the composition of acquired users changed over time (October 2014 to Fabruary 2020).*
+![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)
+*Linear regression captures the general price trend but underperforms for expensive properties*
 
 ### Insights:
 
