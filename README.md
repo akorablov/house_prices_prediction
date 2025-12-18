@@ -1,7 +1,7 @@
 # Overview
 This project aims to develop a simple and interpretable machine learning model to predict house prices based on historical residential property data. The goal is to establish a reliable baseline that can estimate the value of new properties efficiently using a limited set of key structural features, while also demonstrating a complete and well-structured modeling workflow.
 
-The dataset contains 4,140 housing records, with each property described by numerical attributes such as living area (`sqft_living`), number of bedrooms and bathrooms, number of floors, lot size, construction year, renovation status, and selected quality indicators. The target variable is the property sale price. Data preprocessing included exploratory analysis, handling missing values, and selecting relevant features for modeling.
+The dataset contains 4,140 housing records, with each property described by numerical attributes such as living area (sqft_living), number of bedrooms and bathrooms, number of floors, lot size, construction year, renovation status, and selected quality indicators. The target variable is the property sale price. Data preprocessing included exploratory analysis, handling missing values, and selecting relevant features for modeling.
 
 Multiple regression models were evaluated, including ``Linear Regression``, ``Decision Tree``, and ``Random Forest``, using metrics such as Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared, alongside residual diagnostics. The results show that linear regression provides a strong and explainable baseline, while tree-based models require careful tuning and richer feature sets to outperform simpler approaches. The project emphasizes practical model evaluation, interpretability, and informed model selection in real-world predictive analytics.
 
@@ -13,17 +13,17 @@ Multiple regression models were evaluated, including ``Linear Regression``, ``De
 ## Tools I Used
 This project was developed using the following tools and technologies to support data analysis, modeling, and presentation:
 
-- **Python** – the primary language used for data exploration and predictive modeling  
+- **Python** - the primary language used for data exploration and predictive modeling  
   - **Pandas** for data manipulation, cleaning, and feature selection  
   - **Matplotlib** for data visualization and residual diagnostics
   - **NumPy** for numerical operations
   - **scikit-learn** for model training, evaluation, and comparison
 
-- **Jupyter Notebooks** – for running experiments and documenting the analysis in a clear, step-by-step manner 
+- **Jupyter Notebooks** - for running experiments and documenting the analysis in a clear, step-by-step manner 
 
-- **Visual Studio Code** – for writing, testing, and organizing Python scripts  
+- **Visual Studio Code** - for writing, testing, and organizing Python scripts  
 
-- **Git & GitHub** – for version control, experiment tracking, and project sharing
+- **Git & GitHub** - for version control, experiment tracking, and project sharing
 
 ## Import & Clean Up Data
 
@@ -85,6 +85,12 @@ Residual analysis shows that errors are centered close to zero but increase in m
 ![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)
 
 *Linear regression captures the general price trend but underperforms for expensive properties*
+
+The model suggests that bigger homes tend to be more expensive, with living space being the strongest and most consistent driver of price. Homes with more bathrooms are also generally valued higher, as they offer greater comfort and functionality.
+
+Interestingly, once the overall size of the home is taken into account, having more bedrooms does not necessarily increase the price. In some cases, more bedrooms within the same space may mean smaller rooms, which can make a home less attractive. Similarly, houses with more floors may be valued slightly lower, potentially reflecting buyer preferences for simpler layouts or easier accessibility.
+
+Overall, these results show that how space is used matters more than how many rooms a home has, and they help explain why the model predicts prices the way it does.
 
 ## Insights:
 
