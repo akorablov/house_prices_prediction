@@ -51,7 +51,6 @@ The data was then split into training and testing subsets to evaluate model perf
 
 ```python
 from sklearn.model_selection import train_test_split
-
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42)
 
@@ -59,7 +58,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 print(f'Shape of X_train: {X_train.shape}')
 print(f'Shape of X_test: {X_test.shape}')
 ```
-
 This approach establishes a clear and reproducible framework for comparing different regression models while minimizing data leakage and ensuring fair performance assessment.
 
 After preparing the training and testing datasets, a Linear Regression model was selected as the baseline approach due to its simplicity, interpretability, and suitability for understanding relationships between features and house prices. An instance of the model was created using LinearRegression from scikit-learn and trained on the training data (X_train and y_train).
@@ -94,7 +92,7 @@ Overall, these results show that how space is used matters more than how many ro
 
 2. How does an interpretable linear regression model perform compared to more complex tree-based models? The linear regression model outperformed both the Decision Tree and Random Forest models when using default parameters. Despite its simplicity, it generalized better to unseen data and produced more stable results, demonstrating that increased model complexity does not automatically lead to better performance when feature information is limited.
 
-3. What do residuals and model diagnostics reveal about prediction errors and model limitations? Residual analysis showed that prediction errors increase for higher-priced properties and are not evenly distributed across the price range. This indicates heteroscedasticity and suggests that important pricing factors—such as location and property quality—are missing from the feature set. These diagnostics highlight where the model is reliable and where predictions should be treated with caution.
+3. What do residuals and model diagnostics reveal about prediction errors and model limitations? Residual analysis showed that prediction errors increase for higher-priced properties and are not evenly distributed across the price range. This indicates heteroscedasticity and suggests that important pricing factors, such as location and property quality, are missing from the feature set. These diagnostics highlight where the model is reliable and where predictions should be treated with caution.
 
 ## What I Learned
 Through this project, I learned how to structure an end-to-end machine learning workflow, starting from data preparation and feature selection to model training, evaluation, and interpretation. Working with real housing data reinforced the importance of clean inputs and thoughtful feature choices before applying any modeling technique.
