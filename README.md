@@ -26,7 +26,6 @@ This project was developed using the following tools and technologies to support
 - **Git & GitHub** - for version control, experiment tracking, and project sharing
 
 ## Import & Clean Up Data
-
 In this section, I describe the steps taken to prepare the dataset for analysis, ensuring that it is accurate, clean, and ready for exploration.
 
 The required libraries were first imported, and the dataset was loaded for initial inspection. Basic exploratory checks were performed to understand the structure of the data and identify potential quality issues. While most features contained complete values, the condition column included several missing (NaN) entries.
@@ -77,13 +76,11 @@ model.fit(X_train, y_train)
 After training the linear regression model, predictions were generated on the test dataset and evaluated using standard regression metrics: Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared. These metrics quantify overall prediction error, average absolute deviation from true prices, and the proportion of variance in house prices explained by the model.
 
 ## Results
-
 The results indicate that the model explains approximately 29% of the variance in house prices, with an average prediction error of around €180,000. While this level of performance is reasonable for a baseline model using a limited number of structural features, it also highlights that a significant portion of price variation is driven by factors not captured in the dataset.
 
 Residual analysis shows that errors are centered close to zero but increase in magnitude for higher-priced properties. The Actual vs. Predicted plot confirms that the model follows the general pricing trend but systematically underestimates expensive houses, indicating heteroscedasticity and non-linear effects.
 
-![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)
-
+![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)  
 *Linear regression captures the general price trend but underperforms for expensive properties*
 
 The model suggests that bigger homes tend to be more expensive, with living space being the strongest and most consistent driver of price. Homes with more bathrooms are also generally valued higher, as they offer greater comfort and functionality.
@@ -93,12 +90,25 @@ Interestingly, once the overall size of the home is taken into account, having m
 Overall, these results show that how space is used matters more than how many rooms a home has, and they help explain why the model predicts prices the way it does.
 
 ## Insights:
+1. Can house prices be predicted using a limited set of basic structural features? Yes, to a meaningful extent. Using only living area, number of bedrooms, bathrooms, and floors, the model was able to capture general pricing trends and explain approximately 29% of the variation in house prices. While these features are not sufficient for highly precise predictions, they provide a solid baseline for quick and consistent price estimation.
 
+2. How does an interpretable linear regression model perform compared to more complex tree-based models? The linear regression model outperformed both the Decision Tree and Random Forest models when using default parameters. Despite its simplicity, it generalized better to unseen data and produced more stable results, demonstrating that increased model complexity does not automatically lead to better performance when feature information is limited.
 
-
+3. What do residuals and model diagnostics reveal about prediction errors and model limitations? Residual analysis showed that prediction errors increase for higher-priced properties and are not evenly distributed across the price range. This indicates heteroscedasticity and suggests that important pricing factors—such as location and property quality—are missing from the feature set. These diagnostics highlight where the model is reliable and where predictions should be treated with caution.
 
 ## What I Learned
+Through this project, I learned how to structure an end-to-end machine learning workflow, starting from data preparation and feature selection to model training, evaluation, and interpretation. Working with real housing data reinforced the importance of clean inputs and thoughtful feature choices before applying any modeling technique.
+
+I also gained practical insight into model evaluation beyond headline metrics. Comparing Linear Regression, Decision Tree, and Random Forest models showed that more complex models do not automatically deliver better results. In this case, linear regression provided a strong, interpretable baseline, while tree-based models suffered from overfitting due to limited feature richness and lack of tuning.
+
+Finally, this project strengthened my ability to translate technical results into plain-English insights. By analyzing coefficients, residuals, and visual diagnostics, I learned how to explain model behavior, limitations, and business impact in a way that is understandable to non-technical stakeholders—an essential skill for applying data science in real-world decision-making.
 
 ## Challenges I Faced
+One of the main challenges was working with a limited set of features, which restricted the performance of more complex models such as Decision Trees and Random Forests. This highlighted the risk of overfitting and the importance of feature richness over model complexity.
+
+Another challenge was interpreting model performance beyond raw metrics. Understanding residual patterns, negative R² values, and why simpler models outperformed more advanced ones required careful analysis and reinforced the need for diagnostic visualizations.
 
 # Conclusion
+This project demonstrates that a simple, well-understood model can provide strong and reliable results when data quality and feature selection are prioritized. Linear regression proved to be an effective and interpretable baseline for house price prediction, while more complex models require additional tuning and data to add value.
+
+Overall, the project emphasizes practical model evaluation, clear communication of results, and thoughtful model selection—key skills for applying data analysis and machine learning in real business contexts.
