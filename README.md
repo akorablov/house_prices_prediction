@@ -38,11 +38,10 @@ df.head()
 View my notebook with detailed steps here: [house_prices_prediction.ipynb](house_prices_prediction\house_prices_prediction.ipynb).
 
 ## The Analysis
-
-In this stage, the dataset was prepared for modeling by selecting the relevant input features and defining the target variable. Based on  exploratory analysis and domain relevance, the following structural features were chosen: ``living area`` (sqft_living), ``number of bedrooms``, ``number of bathrooms``, and ``number of floors``. The property price was used as the target variable.
+In this stage, the dataset was prepared for modeling by selecting the relevant input features and defining the target variable. Based on  exploratory analysis and domain relevance, the following structural features were chosen: ``living area`` (sqft_living), ``number of bedrooms``, ``number of bathrooms``, ``number of floors``, ``condition``, ``year built``, ``year renovated``, and ``view``. The property price was used as the target variable.
 
 ```python
-X = df[['sqft_living', 'bedrooms', 'bathrooms', 'floors']]
+X = df[['sqft_living', 'bedrooms', 'floors', 'condition', 'yr_built', 'yr_renovated', 'view', 'bathrooms']]
 y = df['price']
 ```
 The data was then split into training and testing subsets to evaluate model performance on unseen data. An 80/20 train–test split was applied using ``train_test_split`` from ``scikit-learn``, with the ``random_state parameter`` set to 42 to ensure reproducibility and consistent results across runs. This produced the variables X_train, X_test, y_train, and y_test, which were used in subsequent modeling and evaluation steps.
@@ -51,16 +50,8 @@ The data was then split into training and testing subsets to evaluate model perf
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42)
-
-# Check shape of splits
-print(f'Shape of X_train: {X_train.shape}')
-print(f'Shape of X_test: {X_test.shape}')
 ```
-This approach establishes a clear and reproducible framework for comparing different regression models while minimizing data leakage and ensuring fair performance assessment.
-
-After preparing the training and testing datasets, a Linear Regression model was selected as the baseline approach due to its simplicity, interpretability, and suitability for understanding relationships between features and house prices. An instance of the model was created using ``LinearRegression`` from scikit-learn and trained on the training data (X_train and y_train).
-
-During training, the model learned the optimal coefficients for each input feature by minimizing the difference between predicted and actual house prices. These coefficients quantify the expected change in price associated with a one-unit change in each feature, holding all other variables constant. The trained model was then used to generate predictions on the test dataset for performance evaluation and diagnostic analysis.
+After splitting the dataset into training and testing subsets, a Linear Regression model was chosen as a baseline due to its simplicity, interpretability, and ability to reveal how individual features influence house prices. The model was instantiated using LinearRegression from scikit-learn and trained on the training data (X_train, y_train).
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -69,28 +60,41 @@ model = LinearRegression()
 # Fit the model
 model.fit(X_train, y_train)
 ```
+
+During training, the model estimated coefficients for each feature by minimizing the difference between the predicted and actual target values. These coefficients represent how much the house price is expected to change with a one-unit increase in a given feature, assuming all other features remain constant. Once trained, the model was applied to the test set to generate predictions, which were then used to evaluate performance and assess how well the model generalizes to unseen data.
+
 After training the linear regression model, predictions were generated on the test dataset and evaluated using standard regression metrics: Mean Squared Error (MSE), Mean Absolute Error (MAE), and R-squared. These metrics quantify overall prediction error, average absolute deviation from true prices, and the proportion of variance in house prices explained by the model.
 
+```python
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+y_pred = model.predict(X_test)
+# Calculate the Mean Squared Error (MSE)
+mse = mean_squared_error(y_test, y_pred)
+# Calculate the R-squared value
+r_squared = r2_score(y_test, y_pred)
+# Calculate the Mean Absolute Error (MAE)
+mae = mean_absolute_error(y_test, y_pred)
+```
 ## Results
-The model explains approximately ``29%`` of the variance in house prices, with an average prediction error of around ``€180,000``. This is reasonable for a baseline model using only a few structural features, but it also shows that many pricing factors (such as location, view quality, neighborhood, and condition) are not captured in the dataset.
+The model explains approximately **39%** of the variance in house prices, with an average prediction error of about $166,000. This is reasonable for a baseline model built using only a **limited set of structural features**, but it also highlights that many important pricing drivers such as ``location``, ``neighborhood characteristics``, and ``view quality`` are not included in the model.
 
-Residual analysis shows that errors are centered close to zero but increase in magnitude for higher-priced properties. The Actual vs. Predicted plot confirms that the model follows the general pricing trend but systematically underestimates expensive houses, indicating heteroscedasticity and non-linear effects.
+Residual analysis shows that errors are generally centered around zero but become larger for higher-priced properties. The Actual vs. Predicted plot confirms that while the model follows the overall price trend, it consistently underestimates more expensive homes, indicating heteroscedasticity and potential non-linear relationships.
 
 ![actual_vs_prdicted_house_prices.png](images/actual_vs_prdicted_house_prices.png)  
 *Linear regression captures the general price trend but underperforms for expensive properties*
 
-The model suggests that bigger homes tend to be more expensive, with living space being the strongest and most consistent driver of price. Homes with more bathrooms are also generally valued higher, as they offer greater comfort and functionality.
+The results indicate that larger homes tend to be more expensive, with living area being the strongest and most reliable predictor of price. Homes in better condition are also typically priced higher, reflecting perceived quality and maintenance level.
 
-Interestingly, once the overall size of the home is taken into account, having more bedrooms does not necessarily increase the price. In some cases, more bedrooms within the same space may mean smaller rooms, which can make a home less attractive. Similarly, houses with more floors may be valued slightly lower, potentially reflecting buyer preferences for simpler layouts or easier accessibility.
+Interestingly, once overall size is controlled for, having more bedrooms does not necessarily increase price. In some cases, more bedrooms within the same space may mean smaller or less functional rooms, which can reduce attractiveness. Similarly, houses with more floors may be valued slightly lower, possibly due to preferences for simpler layouts and accessibility.
 
-Overall, these results show that how space is used matters more than how many rooms a home has, and they help explain why the model predicts prices the way it does.
+Overall, the findings suggest that how space is used matters more than the number of rooms, helping explain why the model produces the predictions it does.
 
 ## Insights:
-1. Can house prices be predicted using a limited set of basic structural features? Yes, to a meaningful extent. Using only living area, number of bedrooms, bathrooms, and floors, the model was able to capture general pricing trends and explain approximately 29% of the variation in house prices. While these features are not sufficient for highly precise predictions, they provide a solid baseline for quick and consistent price estimation.
+1. Can house prices be predicted using a limited set of basic structural features? Yes, to a meaningful extent. Using only basic property characteristics such as living area, number of bedrooms, floors, condition, and construction/renovation year, the model is able to capture overall pricing trends and explains about 39% of the variation in house prices. While this feature set is not sufficient for highly accurate individual price predictions, it provides a solid and interpretable baseline model capable of producing consistent estimates.
 
-2. How does an interpretable linear regression model perform compared to more complex tree-based models? The linear regression model outperformed both the Decision Tree and Random Forest models when using default parameters. Despite its simplicity, it generalized better to unseen data and produced more stable results, demonstrating that increased model complexity does not automatically lead to better performance when **feature information is limited**.
+2. How does an interpretable linear regression model perform compared to more complex tree-based models? The Linear Regression model outperformed both the Decision Tree and Random Forest models when using default parameters. Despite being simpler, it generalized better to unseen data and produced more stable predictions, demonstrating that higher model complexity does not automatically lead to better performance, especially when relevant location and quality-related features are missing.
 
-3. What do residuals and model diagnostics reveal about prediction errors and model limitations? Residual analysis showed that prediction errors increase for higher-priced properties and are not evenly distributed across the price range. This indicates heteroscedasticity and suggests that important pricing factors, such as **location** and **property quality**, are missing from the feature set. These diagnostics highlight where the model is reliable and where predictions should be treated with caution.
+3. What do residuals and model diagnostics reveal about prediction errors and model limitations? Residual analysis shows that prediction errors increase for more expensive homes and are not evenly distributed across the price range. This indicates heteroscedasticity and suggests that important pricing factors, such as neighborhood location, view quality and premium property characteristics are not captured in the current dataset. These diagnostics clearly show where the model performs reliably and where predictions should be interpreted with caution.
 
 ## What I Learned
 Through this project, I learned how to structure an end-to-end machine learning workflow, starting from data preparation and feature selection to model training, evaluation, and interpretation. Working with real housing data reinforced the importance of clean inputs and thoughtful feature choices before applying any modeling technique.
