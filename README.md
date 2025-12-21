@@ -32,7 +32,7 @@ To address this, missing values in the **condition column** were imputed using t
 
 ```python
 df.isnull().sum()
-df['condition'] = df['condition'].fillna
+df['condition'] = df['condition'].fillna(df['condition'].median())
 df.head()
 ```
 View my notebook with detailed steps here: [house_prices_prediction.ipynb](house_prices_prediction\house_prices_prediction.ipynb).
