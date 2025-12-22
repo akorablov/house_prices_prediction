@@ -35,7 +35,7 @@ df.isnull().sum()
 df['condition'] = df['condition'].fillna(df['condition'].median())
 df.head()
 ```
-View my notebook with detailed steps here: [house_prices_prediction.ipynb](house_prices_prediction\house_prices_prediction.ipynb).
+View my notebook with detailed steps here: [house_prices_prediction.ipynb](house_prices_prediction.ipynb)
 
 ## The Analysis
 In this stage, the dataset was prepared for modeling by selecting the relevant input features and defining the target variable. Based on  exploratory analysis and domain relevance, the following structural features were chosen: ``living area`` (sqft_living), ``number of bedrooms``, ``number of bathrooms``, ``number of floors``, ``condition``, ``year built``, ``year renovated``, and ``view``. The property price was used as the target variable.
